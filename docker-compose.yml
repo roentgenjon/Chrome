@@ -1,0 +1,15 @@
+services:
+  chrome:
+    build: ./docker
+    ports:
+      - "6080:6080"   # WebSocket (noVNC)
+      - "5900:5900"   # VNC (optional, für native Clients)
+    environment:
+      SCREEN_RESOLUTION: "1920x1080x24"
+      VNC_PASSWORD: ""          # Setze ein Passwort für Sicherheit
+      START_URL: "https://www.google.com"
+      CHROME_FLAGS: ""          # Zusätzliche Chrome-Flags
+    shm_size: "512m"
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN               # Für Chrome --no-sandbox-Alternativen
